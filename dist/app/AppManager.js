@@ -30,29 +30,21 @@ const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const dotenv = __importStar(require("dotenv"));
 const express_1 = __importDefault(require("express"));
-const authMiddleware_1 = require("../utils/authMiddleware");
-const connection_util_1 = require("../db/util/connection.util");
 const healthCheck_router_1 = require("../routers/healthCheck.router");
 const logger_1 = __importDefault(require("../logger/logger"));
-const userDetails_router_1 = require("../routers/userDetails.router");
 const gameweek_router_1 = require("../routers/gameweek.router");
-const league_router_1 = require("../routers/league.router");
-const pointsTable_router_1 = require("../routers/pointsTable.router");
 /**
  * App Variables
  */
 dotenv.config();
-const PORT = parseInt(process.env.PORT, 10);
+const PORT = parseInt(process.env.PORT || "8080", 10);
+console.log(`MY PORT is ${process.env.PORT}`);
 /**
  * App Manager
  */
 class AppManager {
     constructor() {
         this.app = (0, express_1.default)();
-        this.initDBConnection();
-    }
-    initDBConnection() {
-        (0, connection_util_1.setDBConnection)();
     }
     init() {
         this.initMiddlewares();
@@ -65,11 +57,7 @@ class AppManager {
     }
     initRoutes() {
         this.app.use("/api", healthCheck_router_1.healthCheckRouter);
-        this.app.use("/api", userDetails_router_1.userDetailsRouter);
-        this.app.use("/api", authMiddleware_1.authMiddleware);
         this.app.use("/api", gameweek_router_1.gameweekRouter);
-        this.app.use("/api", league_router_1.leagueRouter);
-        this.app.use("/api", pointsTable_router_1.pointsTableRouter);
     }
     listenApp() {
         this.app.listen(PORT, () => {

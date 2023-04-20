@@ -13,7 +13,7 @@ class ClusterManager {
         this.appManager.init();
     }
     startMaster() {
-        const nworkers = require("os").cpus().length;
+        const nworkers = require("os").cpus().length / 2;
         logger_1.default.info("Master cluster setting up " + nworkers + " workers...");
         for (var i = 0; i < nworkers; i++) {
             cluster_1.default.fork();
@@ -33,7 +33,7 @@ class ClusterManager {
         });
     }
     startCluster() {
-        if (cluster_1.default.isMaster) {
+        if (cluster_1.default.isPrimary) {
             return this.startMaster();
         }
         this.startWorker();

@@ -1,1 +1,0 @@
-{"version":3,"file":"pointsTable.router.js","sourceRoot":"","sources":["../../src/routers/pointsTable.router.ts"],"names":[],"mappings":";;;;;;AAAA,sDAA8B;AAC9B,mGAA0E;AAE7D,QAAA,iBAAiB,GAAG,iBAAO,CAAC,MAAM,EAAE,CAAC;AAElD,qBAAqB;AACrB,yBAAiB,CAAC,IAAI,CAAC,qBAAqB,EAAE,gCAAqB,CAAC,iBAAiB,CAAC,CAAC;AAEvF,kBAAkB;AAClB,yBAAiB,CAAC,GAAG,CAAC,kBAAkB,EAAE,gCAAqB,CAAC,cAAc,CAAC,CAAC"}
