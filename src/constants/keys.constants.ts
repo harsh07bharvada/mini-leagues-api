@@ -11,4 +11,5 @@ export const KEYS = {
   ELEMENTS: 'elements',
   ELEMENT_TYPE: 'element_type',
   WEB_NAME: 'web_name',
+  EXPLAIN: 'explain',
 }

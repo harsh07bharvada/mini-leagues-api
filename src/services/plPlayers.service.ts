@@ -43,4 +43,37 @@ export default class PLPlayersService {
       throw Error(ERROR_MSGS.PL_PLAYERS_DATA_NOT_ERROR)
     }
   }
+
+  static async getPLPlayersLivePointsForGameweek(
+    gameweekID: any,
+    plPlayerOverallData: any
+  ): Promise<any> {
+    let funcName = 'getPLPlayersLiveDataForGameweek'
+    try {
+      logger.info(genFuncLogEntry(filename, funcName))
+
+      const plPlayersLiveDataForGameweek: any =
+        await CoreFPLDetailsService.getFPLLiveDataForGameweek(gameweekID)
+
+      const plPlayersLivePointsForGameweek = plPlayersLiveDataForGameweek[
+        KEYS.ELEMENTS
+      ].reduce((acc: any, eachPlayer: any) => {
+        acc[eachPlayer[KEYS.ID]] = {
+          ...plPlayerOverallData[eachPlayer[KEYS.ID]],
+          gameweekID: gameweekID,
+          points: eachPlayer[KEYS.EXPLAIN],
+        }
+        return acc
+      }, {})
+
+      logger.info(genFuncLogExit(filename, funcName))
+      return plPlayersLivePointsForGameweek
+    } catch (plPlayersLivePointsForGameweekError) {
+      logger.error(
+        genFuncLog(filename, funcName, plPlayersLivePointsForGameweekError)
+      )
+      logger.info(genFuncLogExit(filename, funcName))
+      throw Error(ERROR_MSGS.PL_PLAYERS_LIVE_DATA_NOT_ERROR)
+    }
+  }
 }

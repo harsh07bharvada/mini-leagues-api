@@ -4,6 +4,7 @@ export const ERROR_MSGS = {
   FPL_USER_NOT_FOUND: 'FPL Details for userID not found',
   PL_TEAM_DATA_NOT_ERROR: 'PL team data not found',
   PL_PLAYERS_DATA_NOT_ERROR: 'PL players data not found',
+  PL_PLAYERS_LIVE_DATA_NOT_ERROR: 'PL players live data not found',
   IMPROPER_USER_ID: 'Use ID Invalid ',
   LEAGUES_NOT_FOUND: 'No Leagues found',
   CREDENTIALS_NOT_MATCHING: 'Credential do not match',
@@ -17,6 +18,7 @@ export const ERROR_MSGS = {
   GET_BOOTSTRAP_DATA_FOR_TEAMS_FAILED:
     'Getting teams from Bootstrap data failed',
   GET_BOOTSTRAP_DATA_FAILED: 'Getting Bootstrap data failed',
+  INVALID_GAMEWEEKID_SENT: 'Invalid Gameweek ID sent',
 }
 export const INFO_MSGS = {
   IS_USER_FOUND_STATUS: 'User Detail found status',

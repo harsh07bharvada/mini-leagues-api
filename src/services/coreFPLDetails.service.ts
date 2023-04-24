@@ -76,4 +76,33 @@ export default class CoreFPLDetailsService {
       throw Error(ERROR_MSGS.GET_BOOTSTRAP_DATA_FAILED)
     }
   }
+
+  static async getFPLLiveDataForGameweek(gameweekID: any): Promise<any> {
+    let funcName = 'getFPLLiveDataForGameweek'
+    try {
+      logger.info(genFuncLogEntry(filename, funcName))
+
+      //GET LIVE GAMEWEEK DATA
+      const liveDataForGameweekURL: string =
+        URLS.GET_LIVE_DATA_FOR_GAMEWEEK(gameweekID)
+      const liveDataForGameweek: any = await HTTPService.get(
+        liveDataForGameweekURL
+      )
+
+      logger.info(
+        genFuncLog(
+          filename,
+          funcName,
+          INFO_MSGS.GET_BOOTSTRAP_DATA,
+          liveDataForGameweek
+        )
+      )
+      logger.info(genFuncLogExit(filename, funcName))
+      return liveDataForGameweek
+    } catch (bootstrapDataError) {
+      logger.error(genFuncLog(filename, funcName, bootstrapDataError))
+      logger.info(genFuncLogExit(filename, funcName))
+      throw Error(ERROR_MSGS.GET_BOOTSTRAP_DATA_FAILED)
+    }
+  }
 }

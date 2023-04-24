@@ -8,3 +8,9 @@ plPlayersRouter.get(
   '/plplayers/overalldata',
   plPlayersController.getPLPlayersOverallData
 )
+
+//GET PL PLAYERS LIVE DATA FOR GAMEWEEK
+plPlayersRouter.get(
+  '/plplayers/livedata',
+  plPlayersController.getPLPlayersLiveData
+)
