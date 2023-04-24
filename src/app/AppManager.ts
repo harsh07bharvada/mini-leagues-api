@@ -10,6 +10,7 @@ import logger from '../logger/logger'
 import { gameweekRouter } from '../routers/gameweek.router'
 import { plTeamsRouter } from '../routers/plTeams.router'
 import { plPlayersRouter } from '../routers/plPlayers.router'
+import { leaguesRouter } from '../routers/leagues.router'
 
 /**
  * App Variables
@@ -44,6 +45,7 @@ export class AppManager {
     this.app.use('/api', gameweekRouter)
     this.app.use('/api', plTeamsRouter)
     this.app.use('/api', plPlayersRouter)
+    this.app.use('/api', leaguesRouter)
   }
 
   listenApp() {

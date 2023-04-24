@@ -18,6 +18,7 @@ export const ERROR_MSGS = {
   GET_BOOTSTRAP_DATA_FOR_TEAMS_FAILED:
     'Getting teams from Bootstrap data failed',
   GET_BOOTSTRAP_DATA_FAILED: 'Getting Bootstrap data failed',
+  GET_FPL_LEAGUE_DATA_FAILED: 'Getting FPL League data failed',
   INVALID_GAMEWEEKID_SENT: 'Invalid Gameweek ID sent',
 }
 export const INFO_MSGS = {

@@ -9,6 +9,8 @@ import {
 } from '../utils/logging.util'
 import { IGameweek } from '../interfaces/IGameweek'
 import GameweekService from '../services/gameweek.service'
+import CoreFPLDetailsService from '../services/coreFPLDetails.service'
+import { LEAGUES } from '../constants/urls.constants'
 
 const filename = path.basename(module.filename)
 
@@ -19,25 +21,23 @@ export default {
    * @param response
    * @returns
    */
-  getActiveGameweekDetails: async function (
-    request: Request,
-    response: Response
-  ) {
-    const funcName = 'getActiveGameweekDetails'
+  getTvtLeagueData: async function (request: Request, response: Response) {
+    const funcName = 'getTvtLeagueData'
     try {
       logger.info(genFuncLogEntry(filename, funcName))
 
-      const gameweekDetails: IGameweek =
-        await GameweekService.getCurrentGameweekDetails()
+      const tvtLeagueData = await CoreFPLDetailsService.getFPLLeagueData(
+        LEAGUES.TVT_LEAGUE_ID
+      )
 
       logger.info(genFuncLogExit(filename, funcName))
 
-      return response.status(STATUS_CODE.OK).send(gameweekDetails)
-    } catch (activeGameweekDetailError: any) {
-      logger.error(genFuncLog(filename, funcName, activeGameweekDetailError))
+      return response.status(STATUS_CODE.OK).send(tvtLeagueData)
+    } catch (tvtLeagueDataError: any) {
+      logger.error(genFuncLog(filename, funcName, tvtLeagueDataError))
       return response
         .status(STATUS_CODE.INTERNAL_SERVER)
-        .send({ errorMessage: activeGameweekDetailError.message })
+        .send({ errorMessage: tvtLeagueDataError.message })
     }
   },
 }

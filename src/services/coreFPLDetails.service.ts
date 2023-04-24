@@ -105,4 +105,30 @@ export default class CoreFPLDetailsService {
       throw Error(ERROR_MSGS.GET_BOOTSTRAP_DATA_FAILED)
     }
   }
+
+  static async getFPLLeagueData(leagueID: any): Promise<any> {
+    let funcName = 'getFPLLeagueData'
+    try {
+      logger.info(genFuncLogEntry(filename, funcName))
+
+      //GET FPL LEAGUE DATA
+      const fplLeagueDataURL: string = URLS.GET_TVT_LEAGUE_DATA(leagueID)
+      const fplLeagueData: any = await HTTPService.get(fplLeagueDataURL)
+
+      logger.info(
+        genFuncLog(
+          filename,
+          funcName,
+          INFO_MSGS.GET_BOOTSTRAP_DATA,
+          fplLeagueData
+        )
+      )
+      logger.info(genFuncLogExit(filename, funcName))
+      return fplLeagueData
+    } catch (FPLLeagueDataError) {
+      logger.error(genFuncLog(filename, funcName, FPLLeagueDataError))
+      logger.info(genFuncLogExit(filename, funcName))
+      throw Error(ERROR_MSGS.GET_FPL_LEAGUE_DATA_FAILED)
+    }
+  }
 }
