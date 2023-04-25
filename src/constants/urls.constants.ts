@@ -9,6 +9,8 @@ export const URLS = {
     `https://fantasy.premierleague.com/api/event/${gameweekID}/live/`,
   GET_TVT_LEAGUE_DATA: (leagueID: String) =>
     `https://fantasy.premierleague.com/api/leagues-classic/${leagueID}/standings/?page_new_entries=1&page_standings=1&phase=1`,
+  GET_USER_PICKS_FOR_GAMEWEEK: (userID: String, gameweekID: String) =>
+    `https://fantasy.premierleague.com/api/entry/${userID}/event/${gameweekID}/picks/`,
 }
 
 export const LEAGUES = {

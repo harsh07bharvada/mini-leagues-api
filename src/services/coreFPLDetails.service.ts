@@ -131,4 +131,40 @@ export default class CoreFPLDetailsService {
       throw Error(ERROR_MSGS.GET_FPL_LEAGUE_DATA_FAILED)
     }
   }
+
+  static async getUserPicksForGameweek(
+    userID: any,
+    gameweekID: String
+  ): Promise<any> {
+    let funcName = 'getUserPicksForGameweek'
+    try {
+      logger.info(genFuncLogEntry(filename, funcName))
+
+      //GET USER PICKS FOR GAMEWEEK
+      const userPicksForGameweekURL: string = URLS.GET_USER_PICKS_FOR_GAMEWEEK(
+        userID,
+        gameweekID
+      )
+      const userPicksForGameweekData: any = await HTTPService.get(
+        userPicksForGameweekURL
+      )
+
+      logger.info(
+        genFuncLog(
+          filename,
+          funcName,
+          INFO_MSGS.GET_USER_PICKS_DATA,
+          userPicksForGameweekData
+        )
+      )
+      logger.info(genFuncLogExit(filename, funcName))
+      return userPicksForGameweekData
+    } catch (userPicksForGameweekDataError) {
+      logger.error(
+        genFuncLog(filename, funcName, userPicksForGameweekDataError)
+      )
+      logger.info(genFuncLogExit(filename, funcName))
+      throw Error(ERROR_MSGS.GET_USER_PICKS_FOR_GAMEWEEK_DATA_FAILED)
+    }
+  }
 }

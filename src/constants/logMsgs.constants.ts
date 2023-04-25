@@ -19,7 +19,10 @@ export const ERROR_MSGS = {
     'Getting teams from Bootstrap data failed',
   GET_BOOTSTRAP_DATA_FAILED: 'Getting Bootstrap data failed',
   GET_FPL_LEAGUE_DATA_FAILED: 'Getting FPL League data failed',
+  GET_USER_PICKS_FOR_GAMEWEEK_DATA_FAILED:
+    'Getting user picks for gameweek data failed',
   INVALID_GAMEWEEKID_SENT: 'Invalid Gameweek ID sent',
+  INVALID_USER_ID: 'Invalid user ID sent',
 }
 export const INFO_MSGS = {
   IS_USER_FOUND_STATUS: 'User Detail found status',
@@ -31,4 +34,5 @@ export const INFO_MSGS = {
   REFRESH_TOKEN_MATCH_STATUS: 'User Refresh Token match status',
   GET_EVENT_STATUS: 'Get Event Status data ',
   GET_BOOTSTRAP_DATA: 'Get Bootstrap data ',
+  GET_USER_PICKS_DATA: 'Get user picks data ',
 }
