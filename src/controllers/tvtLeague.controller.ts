@@ -7,7 +7,6 @@ import {
   genFuncLogEntry,
   genFuncLogExit,
 } from '../utils/logging.util'
-import { IGameweek } from '../interfaces/IGameweek'
 import GameweekService from '../services/gameweek.service'
 import CoreFPLDetailsService from '../services/coreFPLDetails.service'
 import { LEAGUES } from '../constants/urls.constants'
@@ -142,7 +141,6 @@ export default {
 
       return response.status(STATUS_CODE.OK).send(tvtLeagueUserGameweekData)
     } catch (tvtLeagueUserGameweekDataError: any) {
-      console.log('My errorrrrrrr:', tvtLeagueUserGameweekDataError)
       logger.error(
         genFuncLog(filename, funcName, tvtLeagueUserGameweekDataError)
       )
