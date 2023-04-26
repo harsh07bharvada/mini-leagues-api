@@ -40,7 +40,7 @@ export default class PLPlayersService {
     } catch (plPlayersError) {
       logger.error(genFuncLog(filename, funcName, plPlayersError))
       logger.info(genFuncLogExit(filename, funcName))
-      throw Error(ERROR_MSGS.PL_PLAYERS_DATA_NOT_ERROR)
+      throw Error(ERROR_MSGS.PL_PLAYERS_DATA_NOT_FOUND_ERROR)
     }
   }
 
@@ -73,7 +73,7 @@ export default class PLPlayersService {
         genFuncLog(filename, funcName, plPlayersLivePointsForGameweekError)
       )
       logger.info(genFuncLogExit(filename, funcName))
-      throw Error(ERROR_MSGS.PL_PLAYERS_LIVE_DATA_NOT_ERROR)
+      throw Error(ERROR_MSGS.PL_PLAYERS_LIVE_DATA_NOT_FOUND_ERROR)
     }
   }
 }

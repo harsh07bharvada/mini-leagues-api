@@ -4,13 +4,9 @@ import {
   genFuncLogEntry,
   genFuncLogExit,
 } from '../utils/logging.util'
-import { ERROR_MSGS, INFO_MSGS } from '../constants/logMsgs.constants'
-import HTTPService from '../utils/fetch.util'
-import { URLS } from '../constants/urls.constants'
+import { ERROR_MSGS } from '../constants/logMsgs.constants'
 import path from 'path'
 import { KEYS } from '../constants/keys.constants'
-import { IGameweek } from '../interfaces/IGameweek'
-import CoreFPLDetailsService from './coreFPLDetails.service'
 const filename = path.basename(module.filename)
 
 export default class PLTeamsService {
@@ -42,7 +38,7 @@ export default class PLTeamsService {
     } catch (getPLTeamsShortNamesError) {
       logger.error(genFuncLog(filename, funcName, getPLTeamsShortNamesError))
       logger.info(genFuncLogExit(filename, funcName))
-      throw Error(ERROR_MSGS.PL_TEAM_DATA_NOT_ERROR)
+      throw Error(ERROR_MSGS.PL_TEAM_DATA_NOT_FOUND_ERROR)
     }
   }
 }

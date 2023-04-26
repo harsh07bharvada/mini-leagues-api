@@ -15,6 +15,7 @@ import { calculatePlayerPointsWithMultiplier } from '../utils/common.utils'
 import { KEYS } from '../constants/keys.constants'
 import PLTeamsService from '../services/plTeams.service'
 import PLPlayersService from '../services/plPlayers.service'
+import UserDetailsService from '../services/userDetails.service'
 
 const filename = path.basename(module.filename)
 
@@ -68,74 +69,8 @@ export default {
           .send({ errorMessage: ERROR_MSGS.INVALID_USER_ID })
       }
 
-      const bootstrapData: any =
-        await CoreFPLDetailsService.getFPLBootstrapData()
-
-      const plTeamsShortNames: any = await PLTeamsService.getPLTeamsShortNames(
-        bootstrapData
-      )
-
-      const plPlayersOverallData: any =
-        await PLPlayersService.getPLPlayersOverallData(
-          bootstrapData,
-          plTeamsShortNames
-        )
-
-      const playersLiveDataForGameweek: any =
-        await PLPlayersService.getPLPlayersLivePointsForGameweek(
-          gameweekID,
-          plPlayersOverallData
-        )
-
-      const tvtPlayerPicksForGameweek =
-        await CoreFPLDetailsService.getUserPicksForGameweek(userID, gameweekID)
-
-      const picks = tvtPlayerPicksForGameweek[KEYS.PICKS].map(
-        (eachPick: any) => {
-          console.log(
-            'each pick',
-            eachPick,
-            eachPick[KEYS.ELEMENT],
-            playersLiveDataForGameweek
-          )
-          return {
-            id: eachPick[KEYS.ELEMENTS],
-            isCaptain: eachPick[KEYS.IS_CAPTAIN],
-            isViceCaptain: eachPick[KEYS.IS_VICE_CAPTAIN],
-            multiplier: eachPick[KEYS.MULTIPLIER],
-            positionInLineup: eachPick[KEYS.POSITION],
-            pointsInfo:
-              playersLiveDataForGameweek[eachPick[KEYS.ELEMENT]][KEYS.POINTS],
-            points: calculatePlayerPointsWithMultiplier(
-              playersLiveDataForGameweek[eachPick[KEYS.ELEMENT]][KEYS.POINTS],
-              eachPick[KEYS.MULTIPLIER]
-            ),
-            teamID:
-              playersLiveDataForGameweek[eachPick[KEYS.ELEMENT]][KEYS.TEAMID],
-            teamName:
-              playersLiveDataForGameweek[eachPick[KEYS.ELEMENT]][
-                KEYS.TEAM_NAME
-              ],
-            displayName:
-              playersLiveDataForGameweek[eachPick[KEYS.ELEMENT]][
-                KEYS.DISPLAY_NAME
-              ],
-            playerType:
-              playersLiveDataForGameweek[eachPick[KEYS.ELEMENT]][
-                KEYS.PLAYER_TYPE
-              ],
-          }
-        }
-      )
-
-      const tvtLeagueUserGameweekData = {
-        userID: userID,
-        points: tvtPlayerPicksForGameweek[KEYS.ENTRY_HISTORY][KEYS.POINTS],
-        pointsOnBench:
-          tvtPlayerPicksForGameweek[KEYS.ENTRY_HISTORY][KEYS.POINTS_ON_BENCH],
-        gameweekID,
-        picks,
-      }
+      const tvtLeagueUserGameweekData =
+        await UserDetailsService.getUserPicksForGameweek(userID, gameweekID)
 
       logger.info(genFuncLogExit(filename, funcName))
 
