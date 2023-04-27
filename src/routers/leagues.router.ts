@@ -11,3 +11,9 @@ leaguesRouter.get(
   '/leagues/tvtleague/userdata',
   tvtLeagueController.getTvtLeagueUserGameweekData
 )
+
+//Tvt League combo data for gameweek
+leaguesRouter.get(
+  '/leagues/tvtleague/combodata',
+  tvtLeagueController.getTvtLeagueComboGameweekData
+)

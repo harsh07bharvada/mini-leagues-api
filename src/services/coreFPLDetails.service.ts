@@ -9,6 +9,8 @@ import HTTPService from '../utils/fetch.util'
 import { URLS } from '../constants/urls.constants'
 import { IFPLUserDetails } from '../interfaces/IFPLUserDetails'
 import path from 'path'
+import PLTeamsService from './plTeams.service'
+import PLPlayersService from './plPlayers.service'
 const filename = path.basename(module.filename)
 
 export default class CoreFPLDetailsService {
@@ -165,6 +167,44 @@ export default class CoreFPLDetailsService {
       )
       logger.info(genFuncLogExit(filename, funcName))
       throw Error(ERROR_MSGS.GET_USER_PICKS_FOR_GAMEWEEK_DATA_FAILED)
+    }
+  }
+
+  static async getAllFPLCoreData(gameweekID: String): Promise<any> {
+    let funcName = 'getAllFPLCoreData'
+    try {
+      logger.info(genFuncLogEntry(filename, funcName))
+
+      const bootstrapData: any =
+        await CoreFPLDetailsService.getFPLBootstrapData()
+
+      const plTeamsShortNames: any = await PLTeamsService.getPLTeamsShortNames(
+        bootstrapData
+      )
+
+      const plPlayersOverallData: any =
+        await PLPlayersService.getPLPlayersOverallData(
+          bootstrapData,
+          plTeamsShortNames
+        )
+
+      const plPlayersLiveDataForGameweek =
+        await PLPlayersService.getPLPlayersLivePointsForGameweek(
+          gameweekID,
+          plPlayersOverallData
+        )
+
+      logger.info(genFuncLogExit(filename, funcName))
+      return {
+        bootstrapData,
+        plTeamsShortNames,
+        plPlayersOverallData,
+        plPlayersLiveDataForGameweek,
+      }
+    } catch (allFPLCoreDataError) {
+      logger.error(genFuncLog(filename, funcName, allFPLCoreDataError))
+      logger.info(genFuncLogExit(filename, funcName))
+      throw Error(ERROR_MSGS.GET_ALL_FPL_CORE_DATA_FAILED)
     }
   }
 }

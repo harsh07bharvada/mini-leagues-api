@@ -6,6 +6,7 @@ export const ERROR_MSGS = {
   PL_PLAYERS_DATA_NOT_FOUND_ERROR: 'PL players data not found',
   PL_PLAYERS_LIVE_DATA_NOT_FOUND_ERROR: 'PL players live data not found',
   USERS_GAMEWEEK_DATA_NOT_FOUND_ERROR: 'Users gameweek data not found',
+  COMBO_GAMEWEEK_DATA_ERROR: 'Combo gameweek data not found',
   IMPROPER_USER_ID: 'Use ID Invalid ',
   LEAGUES_NOT_FOUND: 'No Leagues found',
   CREDENTIALS_NOT_MATCHING: 'Credential do not match',
@@ -22,6 +23,7 @@ export const ERROR_MSGS = {
   GET_FPL_LEAGUE_DATA_FAILED: 'Getting FPL League data failed',
   GET_USER_PICKS_FOR_GAMEWEEK_DATA_FAILED:
     'Getting user picks for gameweek data failed',
+  GET_ALL_FPL_CORE_DATA_FAILED: 'Getting whole FPL core data failed',
   INVALID_GAMEWEEKID_SENT: 'Invalid Gameweek ID sent',
   INVALID_USER_ID: 'Invalid user ID sent',
 }

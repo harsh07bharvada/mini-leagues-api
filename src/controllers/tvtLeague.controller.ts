@@ -69,8 +69,19 @@ export default {
           .send({ errorMessage: ERROR_MSGS.INVALID_USER_ID })
       }
 
+      const {
+        bootstrapData,
+        plTeamsShortNames,
+        plPlayersOverallData,
+        plPlayersLiveDataForGameweek,
+      } = await CoreFPLDetailsService.getAllFPLCoreData(gameweekID)
+
       const tvtLeagueUserGameweekData =
-        await UserDetailsService.getUserPicksForGameweek(userID, gameweekID)
+        await UserDetailsService.getUserPicksInfoForGameweek(
+          plPlayersLiveDataForGameweek,
+          userID,
+          gameweekID
+        )
 
       logger.info(genFuncLogExit(filename, funcName))
 
@@ -82,6 +93,81 @@ export default {
       return response
         .status(STATUS_CODE.INTERNAL_SERVER)
         .send({ errorMessage: tvtLeagueUserGameweekDataError.message })
+    }
+  },
+
+  /**
+   *
+   * @param request
+   * @param response
+   * @returns
+   */
+  getTvtLeagueComboGameweekData: async function (
+    request: Request,
+    response: Response
+  ) {
+    const funcName = 'getTvtLeagueComboGameweekData'
+    try {
+      logger.info(genFuncLogEntry(filename, funcName))
+
+      const { captainUserID, partnerUserID, gameweekID }: any = request.query
+
+      if (!captainUserID || !partnerUserID) {
+        return response
+          .status(STATUS_CODE.INTERNAL_SERVER)
+          .send({ errorMessage: ERROR_MSGS.INVALID_USER_ID })
+      }
+
+      const {
+        bootstrapData,
+        plTeamsShortNames,
+        plPlayersOverallData,
+        plPlayersLiveDataForGameweek,
+      } = await CoreFPLDetailsService.getAllFPLCoreData(gameweekID)
+
+      const captainUserGameweekData =
+        await UserDetailsService.getUserPicksInfoForGameweek(
+          plPlayersLiveDataForGameweek,
+          captainUserID,
+          gameweekID
+        )
+
+      const partnerUserGameweekData =
+        await UserDetailsService.getUserPicksInfoForGameweek(
+          plPlayersLiveDataForGameweek,
+          partnerUserID,
+          gameweekID
+        )
+
+      const tvtLeagueComboGameweekData =
+        await UserDetailsService.getComboPicksForGameweek([
+          {
+            userPicksInfo: captainUserGameweekData,
+            multiplier: 2,
+          },
+          {
+            userPicksInfo: partnerUserGameweekData,
+            multiplier: 1,
+          },
+        ])
+
+      logger.info(genFuncLogExit(filename, funcName))
+
+      const tvtLeagueComboData = {
+        captainUserID,
+        captainUserGameweekData,
+        partnerUserID,
+        partnerUserGameweekData,
+        comboPicks: tvtLeagueComboGameweekData,
+      }
+      return response.status(STATUS_CODE.OK).send(tvtLeagueComboData)
+    } catch (tvtLeagueComboGameweekDataError: any) {
+      logger.error(
+        genFuncLog(filename, funcName, tvtLeagueComboGameweekDataError)
+      )
+      return response
+        .status(STATUS_CODE.INTERNAL_SERVER)
+        .send({ errorMessage: tvtLeagueComboGameweekDataError.message })
     }
   },
 }
