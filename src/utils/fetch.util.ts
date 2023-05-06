@@ -30,7 +30,10 @@ export default class HTTPService {
         method: 'GET',
         headers: {
           'User-Agent':
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.19 Safari/537.36',
+            'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36',
+          'sec-ch-ua': `"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"`,
+          'sec-ch-ua-mobile': `?1`,
+          'sec-ch-ua-platform': 'Android',
         },
       })
       return response.data
