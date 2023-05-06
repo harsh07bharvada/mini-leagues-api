@@ -29,7 +29,8 @@ export default class HTTPService {
       let response: AxiosResponse = await axios.get(url, {
         method: 'GET',
         headers: {
-          'User-Agent': 'mini-leagues-api',
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36',
         },
       })
       return response.data
