@@ -266,19 +266,19 @@ export default {
       logger.info(genFuncLogExit(filename, funcName))
 
       const tvtLeagueComboData = {
-        forData: {
-          forCaptainUserID,
-          forCaptainUserGameweekData,
-          forPartnerUserID,
-          forPartnerUserGameweekData,
-          forComboPicks: tvtLeagueForComboGameweekData,
+        forComboData: {
+          captainUserID: forCaptainUserID,
+          captainUserGameweekData: forCaptainUserGameweekData,
+          partnerUserID: forPartnerUserID,
+          partnerUserGameweekData: forPartnerUserGameweekData,
+          comboPicks: tvtLeagueForComboGameweekData,
         },
-        againstData: {
-          againstCaptainUserID,
-          againstCaptainUserGameweekData,
-          againstPartnerUserID,
-          againstPartnerUserGameweekData,
-          againstComboPicks: tvtLeagueAgainstComboGameweekData,
+        againstComboData: {
+          captainUserID: againstCaptainUserID,
+          captainUserGameweekData: againstCaptainUserGameweekData,
+          partnerUserID: againstPartnerUserID,
+          partnerUserGameweekData: againstPartnerUserGameweekData,
+          comboPicks: tvtLeagueAgainstComboGameweekData,
         },
       }
       return response.status(STATUS_CODE.OK).send(tvtLeagueComboData)
@@ -290,12 +290,9 @@ export default {
           tvtLeagueForComboVsAgainstComboGameweekDataError
         )
       )
-      return response
-        .status(STATUS_CODE.INTERNAL_SERVER)
-        .send({
-          errorMessage:
-            tvtLeagueForComboVsAgainstComboGameweekDataError.message,
-        })
+      return response.status(STATUS_CODE.INTERNAL_SERVER).send({
+        errorMessage: tvtLeagueForComboVsAgainstComboGameweekDataError.message,
+      })
     }
   },
 }
