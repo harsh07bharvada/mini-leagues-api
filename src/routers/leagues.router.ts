@@ -17,3 +17,9 @@ leaguesRouter.get(
   '/leagues/tvtleague/combodata',
   tvtLeagueController.getTvtLeagueComboGameweekData
 )
+
+//Tvt League for combo data and against for gameweek
+leaguesRouter.get(
+  '/leagues/tvtleague/forcombovsagainstcombo',
+  tvtLeagueController.getTvtLeagueForComboVsAgainstComboGameweekData
+)
