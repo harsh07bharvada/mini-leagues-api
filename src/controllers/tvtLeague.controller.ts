@@ -16,6 +16,8 @@ import { KEYS } from '../constants/keys.constants'
 import PLTeamsService from '../services/plTeams.service'
 import PLPlayersService from '../services/plPlayers.service'
 import UserDetailsService from '../services/userDetails.service'
+import flatCache from 'flat-cache'
+const cache = flatCache.load('mini-leagues')
 
 const filename = path.basename(module.filename)
 
@@ -31,12 +33,17 @@ export default {
     try {
       logger.info(genFuncLogEntry(filename, funcName))
 
+      if (cache.getKey(request.url)) {
+        console.log('CACHE-HIT', request.url)
+        logger.info(genFuncLogExit(filename, funcName))
+        return response.status(STATUS_CODE.OK).send(cache.getKey(request.url))
+      }
       const tvtLeagueData = await CoreFPLDetailsService.getFPLLeagueData(
         LEAGUES.TVT_LEAGUE_ID
       )
-
       logger.info(genFuncLogExit(filename, funcName))
 
+      cache.setKey(request.url, tvtLeagueData)
       return response.status(STATUS_CODE.OK).send(tvtLeagueData)
     } catch (tvtLeagueDataError: any) {
       logger.error(genFuncLog(filename, funcName, tvtLeagueDataError))
@@ -185,6 +192,11 @@ export default {
     try {
       logger.info(genFuncLogEntry(filename, funcName))
 
+      if (cache.getKey(request.url)) {
+        console.log('CACHE-HIT', request.url)
+        logger.info(genFuncLogExit(filename, funcName))
+        return response.status(STATUS_CODE.OK).send(cache.getKey(request.url))
+      }
       const {
         forCaptainUserID,
         forPartnerUserID,
@@ -281,6 +293,8 @@ export default {
           comboPicks: tvtLeagueAgainstComboGameweekData,
         },
       }
+
+      cache.setKey(request.url, tvtLeagueComboData)
       return response.status(STATUS_CODE.OK).send(tvtLeagueComboData)
     } catch (tvtLeagueForComboVsAgainstComboGameweekDataError: any) {
       logger.error(
