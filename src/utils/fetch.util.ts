@@ -32,7 +32,6 @@ export default class HTTPService {
         headers: {
           'User-Agent': makeid(10),
         },
-        timeout: 500,
       })
       return response.data
     } catch (err) {
