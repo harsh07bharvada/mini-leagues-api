@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
+import { makeid } from './common.utils'
 export default class HTTPService {
   /**
    *
@@ -29,7 +30,7 @@ export default class HTTPService {
       let response: AxiosResponse = await axios.get(url, {
         method: 'GET',
         headers: {
-          'User-Agent': 'mini-leagues-api',
+          'User-Agent': makeid(10),
         },
       })
       return response.data
