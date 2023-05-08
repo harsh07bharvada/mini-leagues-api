@@ -30,7 +30,11 @@ export default class HTTPService {
       let response: AxiosResponse = await axios.get(url, {
         method: 'GET',
         headers: {
-          'User-Agent': makeid(10),
+          'User-Agent': 'PostmanRuntime/7.26.8',
+          'Accept-Encoding': 'gzip, deflate, br',
+          Connection: 'keep-alive',
+          Accept: '*/*',
+          'Cache-Control': 'no-cache',
         },
       })
       return response.data
