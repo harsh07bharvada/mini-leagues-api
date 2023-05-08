@@ -7,14 +7,9 @@ import {
   genFuncLogEntry,
   genFuncLogExit,
 } from '../utils/logging.util'
-import GameweekService from '../services/gameweek.service'
 import CoreFPLDetailsService from '../services/coreFPLDetails.service'
 import { LEAGUES } from '../constants/urls.constants'
 import { ERROR_MSGS } from '../constants/logMsgs.constants'
-import { calculatePlayerPointsWithMultiplier } from '../utils/common.utils'
-import { KEYS } from '../constants/keys.constants'
-import PLTeamsService from '../services/plTeams.service'
-import PLPlayersService from '../services/plPlayers.service'
 import UserDetailsService from '../services/userDetails.service'
 import flatCache from 'flat-cache'
 const cache = flatCache.load('mini-leagues')
@@ -33,11 +28,6 @@ export default {
     try {
       logger.info(genFuncLogEntry(filename, funcName))
 
-      if (cache.getKey(request.url)) {
-        console.log('CACHE-HIT', request.url)
-        logger.info(genFuncLogExit(filename, funcName))
-        return response.status(STATUS_CODE.OK).send(cache.getKey(request.url))
-      }
       const tvtLeagueData = await CoreFPLDetailsService.getFPLLeagueData(
         LEAGUES.TVT_LEAGUE_ID
       )
@@ -47,6 +37,12 @@ export default {
       return response.status(STATUS_CODE.OK).send(tvtLeagueData)
     } catch (tvtLeagueDataError: any) {
       logger.error(genFuncLog(filename, funcName, tvtLeagueDataError))
+
+      if (cache.getKey(request.url)) {
+        console.log('CACHE-HIT', request.url)
+        logger.info(genFuncLogExit(filename, funcName))
+        return response.status(STATUS_CODE.OK).send(cache.getKey(request.url))
+      }
       return response
         .status(STATUS_CODE.INTERNAL_SERVER)
         .send({ errorMessage: tvtLeagueDataError.message })
@@ -192,11 +188,6 @@ export default {
     try {
       logger.info(genFuncLogEntry(filename, funcName))
 
-      if (cache.getKey(request.url)) {
-        console.log('CACHE-HIT', request.url)
-        logger.info(genFuncLogExit(filename, funcName))
-        return response.status(STATUS_CODE.OK).send(cache.getKey(request.url))
-      }
       const {
         forCaptainUserID,
         forPartnerUserID,
@@ -304,6 +295,12 @@ export default {
           tvtLeagueForComboVsAgainstComboGameweekDataError
         )
       )
+
+      if (cache.getKey(request.url)) {
+        console.log('CACHE-HIT', request.url)
+        logger.info(genFuncLogExit(filename, funcName))
+        return response.status(STATUS_CODE.OK).send(cache.getKey(request.url))
+      }
       return response.status(STATUS_CODE.INTERNAL_SERVER).send({
         errorMessage: tvtLeagueForComboVsAgainstComboGameweekDataError.message,
       })

@@ -28,11 +28,6 @@ export default {
     try {
       logger.info(genFuncLogEntry(filename, funcName))
 
-      if (cache.getKey(request.url)) {
-        console.log('CACHE-HIT', request.url)
-        logger.info(genFuncLogExit(filename, funcName))
-        return response.status(STATUS_CODE.OK).send(cache.getKey(request.url))
-      }
       const gameweekDetails: IGameweek =
         await GameweekService.getCurrentGameweekDetails()
 
@@ -42,6 +37,12 @@ export default {
       return response.status(STATUS_CODE.OK).send(gameweekDetails)
     } catch (activeGameweekDetailError: any) {
       logger.error(genFuncLog(filename, funcName, activeGameweekDetailError))
+
+      if (cache.getKey(request.url)) {
+        console.log('CACHE-HIT', request.url)
+        logger.info(genFuncLogExit(filename, funcName))
+        return response.status(STATUS_CODE.OK).send(cache.getKey(request.url))
+      }
       return response
         .status(STATUS_CODE.INTERNAL_SERVER)
         .send({ errorMessage: activeGameweekDetailError.message })
