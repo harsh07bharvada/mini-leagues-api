@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: repo-sync
-      uses: wei/git-sync@v3
+      uses: wei/git-sync@v1
       env:
         SOURCE_REPO: "https://github.com/harsh07bharvada/mini-leagues-api.git"
         SOURCE_BRANCH: "master"
