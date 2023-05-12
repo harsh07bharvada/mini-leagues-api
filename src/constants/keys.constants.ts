@@ -28,4 +28,10 @@ export const KEYS = {
   PLAYER_TYPE: 'playerType',
   ENTRY_HISTORY: 'entry_history',
   POINTS_ON_BENCH: 'points_on_bench',
+  ACTIVE_CHIP: 'active_chip',
+  AUTOMATIC_SUBS: 'automatic_subs',
+  EVENT_TRANSFERS: 'event_transfers',
+  EVENT_TRANSFERS_COST: 'event_transfers_cost',
+  BANK: 'bank',
+  OVERALL_RANK: 'overall_rank',
 }
