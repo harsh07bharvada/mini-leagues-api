@@ -34,4 +34,5 @@ export const KEYS = {
   EVENT_TRANSFERS_COST: 'event_transfers_cost',
   BANK: 'bank',
   OVERALL_RANK: 'overall_rank',
+  VALUE: 'value',
 }

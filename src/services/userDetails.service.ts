@@ -73,6 +73,7 @@ export default class UserDetailsService {
         overallRank:
           tvtPlayerPicksForGameweek[KEYS.ENTRY_HISTORY][KEYS.OVERALL_RANK],
         automaticSubs: tvtPlayerPicksForGameweek[KEYS.AUTOMATIC_SUBS],
+        teamValue: tvtPlayerPicksForGameweek[KEYS.ENTRY_HISTORY][KEYS.VALUE],
       }
       logger.info(genFuncLogExit(filename, funcName))
       return tvtLeagueUserGameweekData
